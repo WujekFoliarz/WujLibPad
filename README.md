@@ -2,6 +2,19 @@
 - Consistant connection.
 - Easy-to-use haptic feedback designed for external game mods, with real-time editable audio (sound/pitch).
 
+# How to use in C++:
+- Clone the repo
+- Compile the project
+- Download [DualSenseAPI.h](https://github.com/WujekFoliarz/WujLibPad/blob/master/WujLibPad/DualSenseAPI.h) and include it
+- Download [hidapi.dll](https://github.com/libusb/hidapi/releases) and put it in your release folder
+- Put WujLibPad.dll in your bin folder
+
+# How to use in C#:
+- Clone the repo
+- Compile the project
+- Download [WujLibPad-CSharp.cs](https://github.com/WujekFoliarz/WujLibPad/blob/master/Bindings/CSharp.cs) and include it in your C# project
+- Put WujLibPad.dll and [hidapi.dll](https://github.com/libusb/hidapi/releases) in your bin folder
+
 # Examples
 ```
 // C# Example
@@ -11,7 +24,7 @@ var dualsense = WujLibPad.Dualsense_Create(); // Find first available controller
 byte[] leftTriggerForces = { 10, 255, 40, 0, 0, 0, 0, 0, 0, 0, 0 };
 while(true)
 {
-    if(Controller.IsConnected(dualsense) == false) {
+    if(WujLibPad.Dualsense_IsConnected(dualsense) == false) {
         WujLibPad.Dualsense_Connect(dualsense);
     }
 
@@ -31,33 +44,5 @@ while(true)
     }
 
     WujLibPad.Dualsense_Write(dualsense);
-}
-```
-
-```
-// C++ Example
-
-Dualsense controller = Dualsense();
-
-while(true)
-{
-    if(controller.Connected == false) {
-        controller.Reconnect();
-    }
-
-    controller.InitializeAudioEngine();
-    controller.Read();
-
-    controller.SetPlayerLED(1); // One LED light
-    controller.SetLightbarColor(0, 1, 255); // Blue color
-    controller.LoadSound("rumble", "haptics\\rumble_mid_4c.wav"); // Load wav file, will be skipped if already loaded (Must be a 4 channel 48KHz IEEE Float PCM)
-    controller.PlayHaptics("rumble", true, true); // Play the sound in loop
-    controller.SetLeftTrigger(TriggerMode::Pulse_B, 10, 255, 40, 0, 0, 0, 0, 0, 0, 0, 0); // Set automatic gun effect for right trigger
-
-    if(controller.State.cross == true){
-        std::cout << "Cross clicked!" << endl;
-    }
-
-    controller.Write();
 }
 ```
