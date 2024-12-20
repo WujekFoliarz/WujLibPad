@@ -6,7 +6,7 @@
 - Clone the repo
 - Compile the project
 - Download [DualSenseAPI.h](https://github.com/WujekFoliarz/WujLibPad/blob/master/WujLibPad/DualSenseAPI.h) and include it
-- Download [hidapi.dll](https://github.com/libusb/hidapi/releases) and put it in your release folder
+- Download [hidapi.dll](https://github.com/libusb/hidapi/releases) and put it in your bin folder
 - Put WujLibPad.dll in your bin folder
 
 # How to use in C#:
