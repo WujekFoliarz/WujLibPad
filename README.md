@@ -1,8 +1,6 @@
-# WujLibPad
-
 # Why use this library?
 - Consistant connection.
-- Easy to use haptic feedback designed for external game mods.
+- Easy-to-use haptic feedback designed for external game mods, with real-time editable audio (sound/pitch).
 
 # Examples
 ```
