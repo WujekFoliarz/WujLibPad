@@ -254,7 +254,7 @@ enum TriggerMode : uint8_t
 extern "C" {
 
     // Constructor/Destructor
-    DUALSENSEAPI void* Dualsense_Create(const char* path);
+    DUALSENSEAPI void* Dualsense_Create(const char* path = "");
     DUALSENSEAPI void Dualsense_Destroy(void* handle);
 
     // General Properties
