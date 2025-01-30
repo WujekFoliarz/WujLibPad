@@ -1,9 +1,5 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
-#define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
-#include "include/hidapi.h"
-#include "DualSenseAPI.h"
 
 using namespace std;
 

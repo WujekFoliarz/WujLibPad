@@ -1,12 +1,12 @@
 #pragma once
 
+#pragma pack(push, 1) // Ensure no padding between members
+
 #ifdef DUALSENSEAPI_EXPORTS
 #define DUALSENSEAPI __declspec(dllexport)
 #else
 #define DUALSENSEAPI __declspec(dllimport)
 #endif
-
-#pragma pack(push, 1) // Ensure no padding between members
 
 struct Touchpad
 {
