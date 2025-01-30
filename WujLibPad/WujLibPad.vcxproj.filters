@@ -21,10 +21,10 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\ImGuiProjectTemplate\app\miniaudio.h">
+    <ClInclude Include="DualSenseAPI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DualSenseAPI.h">
+    <ClInclude Include="miniaudio.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

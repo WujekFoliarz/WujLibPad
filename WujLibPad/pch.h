@@ -30,8 +30,6 @@
 #include <usbiodef.h>
 #include <codecvt>
 #include <map>
-#define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
 #include "include/hidapi.h"
 #include "DualSenseAPI.h"
 

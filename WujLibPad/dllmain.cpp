@@ -1,5 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "pch.h"
+#define MINIAUDIO_IMPLEMENTATION
+#include "miniaudio.h"
 
 using namespace std;
 
@@ -641,13 +643,13 @@ public:
 				((ButtonStates[39 + offset] & 0xF0) >> 4);
 			buttonState.TouchPacketNum = (uint8_t)(ButtonStates[41 + offset]);
 
-			buttonState.gyro.X = static_cast<int16_t>((ButtonStates[17 + offset] << 8) | ButtonStates[16 + offset]);
-			buttonState.gyro.Y = static_cast<int16_t>((ButtonStates[19 + offset] << 8) | ButtonStates[18 + offset]);
-			buttonState.gyro.Z = static_cast<int16_t>((ButtonStates[21 + offset] << 8) | ButtonStates[20 + offset]);
+			buttonState.accelerometer.X = static_cast<int16_t>((ButtonStates[17 + offset] << 8) | ButtonStates[16 + offset]);
+			buttonState.accelerometer.Y = static_cast<int16_t>((ButtonStates[19 + offset] << 8) | ButtonStates[18 + offset]);
+			buttonState.accelerometer.Z = static_cast<int16_t>((ButtonStates[21 + offset] << 8) | ButtonStates[20 + offset]);
 
-			buttonState.accelerometer.X = static_cast<int16_t>((ButtonStates[23 + offset] << 8) | ButtonStates[22 + offset]);
-			buttonState.accelerometer.Y = static_cast<int16_t>((ButtonStates[25 + offset] << 8) | ButtonStates[24 + offset]);
-			buttonState.accelerometer.Z = static_cast<int16_t>((ButtonStates[27 + offset] << 8) | ButtonStates[26 + offset]);
+			buttonState.gyro.X = static_cast<int16_t>((ButtonStates[23 + offset] << 8) | ButtonStates[22 + offset]);
+			buttonState.gyro.Y = static_cast<int16_t>((ButtonStates[25 + offset] << 8) | ButtonStates[24 + offset]);
+			buttonState.gyro.Z = static_cast<int16_t>((ButtonStates[27 + offset] << 8) | ButtonStates[26 + offset]);
 
 			buttonState.accelerometer.SensorTimestamp =
 				(static_cast<uint32_t>(ButtonStates[28 + offset])) |
