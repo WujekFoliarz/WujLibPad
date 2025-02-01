@@ -171,13 +171,6 @@ UINT32 compute(unsigned char* buffer, size_t len) {
 }
 
 namespace DualsenseUtils {
-	enum HapticFeedbackStatus {
-		Working = 0,
-		BluetoothNotUSB = 1,
-		AudioDeviceNotFound = 2,
-		AudioEngineNotInitialized = 3,
-		Unknown = 4,
-	};
 
 	class InputFeatures {
 	public:
@@ -469,7 +462,6 @@ private:
 	ma_result result;
 	ma_engine engine;
 	ma_device device;
-	ma_decoder decoder;
 	ma_device deviceLoopback;
 	std::map<std::string, shared_ptr<ma_sound>> soundMap;
 	std::map<std::string, shared_ptr<ma_sound>> CurrentlyPlayedSounds;
@@ -540,12 +532,13 @@ public:
 
 			if (result == MA_SUCCESS) {
 				soundMap[soundName] = sound; // Store the sound in the map
+				std::cout << "[WujLibPad] Sound " << filePath << " had been loaded successfuly!" << std::endl;
 				return true;
 			}
 			else {
 				// Ensure proper cleanup
 				ma_sound_uninit(sound.get());
-
+				std::cout << "[WujLibPad] Failed to load " << filePath << ". Reason: " << result << std::endl;
 				return false;
 			}
 		}
@@ -1100,20 +1093,20 @@ public:
 		}
 	}
 
-	DualsenseUtils::HapticFeedbackStatus GetHapticFeedbackStatus() {
+	HapticFeedbackStatus GetHapticFeedbackStatus() {
 		if (connectionType == Feature::ConnectionType::BT) {
-			return DualsenseUtils::HapticFeedbackStatus::BluetoothNotUSB;
+			return HapticFeedbackStatus::BluetoothNotUSB;
 		}
 
 		if (AudioDeviceNotFound) {
-			return DualsenseUtils::HapticFeedbackStatus::AudioDeviceNotFound;
+			return HapticFeedbackStatus::AudioDeviceNotFound;
 		}
 
 		if (!AudioInitialized) {
-			return DualsenseUtils::HapticFeedbackStatus::AudioEngineNotInitialized;
+			return HapticFeedbackStatus::AudioEngineNotInitialized;
 		}
 
-		return DualsenseUtils::HapticFeedbackStatus::Working;
+		return HapticFeedbackStatus::Working;
 	}
 
 	static void ma_sound_end_proc(void* pUserData, ma_sound* pSound) {
@@ -1292,6 +1285,8 @@ public:
 					lastKnownParent = parent;
 				}
 
+				soundMap.clear();
+				CurrentlyPlayedSounds.clear();
 				LastTimeReconnected = std::chrono::high_resolution_clock::now();
 				return DualsenseUtils::Reconnect_Result::Reconnected;
 			}
@@ -1613,6 +1608,11 @@ extern "C" {
 	DUALSENSEAPI void Dualsense_SetRumble(void* handle, uint8_t LeftMotor, uint8_t RightMotor) {
 		if (!handle) return;
 		return static_cast<Dualsense*>(handle)->SetRumble(LeftMotor, RightMotor);
+	}
+
+	DUALSENSEAPI HapticFeedbackStatus Dualsense_GetHapticFeedbackStatus(void* handle) {
+		if (!handle) return HapticFeedbackStatus::Unknown;
+		return static_cast<Dualsense*>(handle)->GetHapticFeedbackStatus();
 	}
 }
 
